@@ -1,29 +1,28 @@
-aos.init();
+AOS.init(); 
+$('[data-aos]').each(function(){
+     $(this).addClass("aos-init"); 
+});
 
-$(function() {
-  var page = $('#fullpage').fullpage({
-    sectionsColor : ['skyblue', 'grey', '#efefef'],
-    'afterLoad': function(anchorLink, index) {
-      if ( index == 1 ) {
-        console.log('첫번째다');
-      }
-
-      if ( index == 2) {
-        console.log('두번째다');
-        
-      }
-  }
-  })
-})
-
-
-
-
-
-
-      //,1100,"animated fadeInRight")
-      //   setTimeout(function(){
-      //     $(".about-contents").addClass("fade-active",900,"animated fadeInRight",function(){
-      //         $(".about-contents").delay(400).addClass("active",800,"animated fadeInRight")
-      //     })
-      // },700)
+$('#fullpage').fullpage({
+  slidesNavigation: true,
+  controlArrows: false,
+  onLeave: function(){
+      $('.section [data-aos]').each(function(){
+          $(this).removeClass("aos-animate")
+      });
+  }, // 화면 전환 직전에 실행
+  onSlideLeave: function(){
+      $('.slide [data-aos]').each(function(){
+          $(this).removeClass("aos-animate")
+      });
+  }, // 슬라이드 전환 직전에 실행
+  afterSlideLoad: function(){
+      $('.slide.active [data-aos]').each(function(){
+          $(this).addClass("aos-animate")
+      });
+  }, // 슬라이드 화면이 전환되고 난 후에 실행
+  afterLoad: function(){
+      $('.section.active [data-aos]').each(function(){
+          $(this).addClass("aos-animate")
+      });
+  }}); // 풀페이지 화면이 전환되고나서 실행
